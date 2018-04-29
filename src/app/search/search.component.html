@@ -1,0 +1,33 @@
+<div class="search-wrap">
+	<input name="search" type="search" class="form-control" [(ngModel)]="search" (ngModelChange)="selectedF($event)" placeholder="Bulmak istediğiniz filmin adını yazınız" />
+</div>
+<div class="search-page content" *ngIf="!data.empty">
+	<div class="film-boxes">
+		<div class="container">
+			<div class="film-box row" *ngFor="let dt of data | twoFilms:2">
+				<div class="film-poster col-lg-5">
+					<a [routerLink]="['detail', dt.imdbID]">
+						<img *ngIf="dt.Poster != 'N/A'" src="{{dt.Poster}}">
+						<img *ngIf="dt.Poster == 'N/A'" src="../../assets/img/default_poster.png">
+					</a>
+				</div>
+				<div class="film-text col-lg-7">
+					<div class="film-text-top">
+						<div class="title">{{ dt.Title }}</div>
+					</div>
+					<div class="film-text-middle">
+						<div class="type"><span>Tür: </span>{{ dt.Type }}</div>
+						<div class="year"><span>Yıl: </span>{{ dt.Year }}</div>
+					</div>
+					<div class="film-text-bottom">
+						<a class="detail-link" [routerLink]="['detail', dt.imdbID]">Detaylar</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="button-wrap">
+		<a [routerLink]="['list', search]">DAHA FAZLA SONUÇ</a>
+	</div>
+</div>
+

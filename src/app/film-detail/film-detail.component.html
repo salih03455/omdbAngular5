@@ -1,0 +1,32 @@
+<div class="detail-page content">
+	<div class="film-boxes">
+		<div class="film-box">
+			<div class="film-poster">
+				<img *ngIf="data.Poster != 'N/A'" src="{{data.Poster}}">
+				<img *ngIf="data.Poster == 'N/A'" src="../../assets/img/default_poster.png">
+			</div>
+			<div class="film-text">
+				<div class="film-text-top">
+					<div class="title">{{ data.Title }}</div>
+					<div class="rating" *ngIf="data.imdbRating != 'N/A'">
+						<span>{{ data.imdbRating }}</span>
+						<span>/10</span>
+					</div>
+				</div>
+				<div class="film-text-middle">					
+					<div class="lang"><span>Dil: </span>{{ data.Language }}</div>
+					<div class="genre"><span>Tür: </span>{{ data.Genre }}</div>
+					<div class="director"><span>Yönetmen: </span>{{ data.Director }}</div>
+					<div class="actors"><span>Oyuncular: </span>{{ data.Actors }}</div>
+					<div class="year"><span>Yıl: </span>{{ data.Year }}</div>
+				</div>
+				<div class="film-text-bottom">
+					<div class="details">{{ data.Plot }}</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="button-wrap">
+		<a href="javascript:void(0)" (click)="onLoadHome()">BAŞA DÖN</a>
+	</div>
+</div>
