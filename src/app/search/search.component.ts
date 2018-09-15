@@ -11,10 +11,11 @@ import { Response } from '@angular/http';
 	styleUrls: ['./search.component.scss'],
 	providers: [GetDataService]
 })
+
 export class SearchComponent implements OnInit {
 	data: Object = { empty: true };
-  search: String = '';
-  dataLength: Number = 0;
+  	search: String = '';
+  	dataLength: Number = 0;
 	
 	constructor(private dataService: GetDataService, private http: HttpClient, private router: Router){}
 
@@ -27,13 +28,13 @@ export class SearchComponent implements OnInit {
 					(response: Response) => {
 						if (response.json().Response == 'True') {
 							let res = response.json().Search;
-              this.dataLength = res.length;
-              let filmId = [];
-              for (let i = 0; i < res.length; i++) {
-                let dataId = res[i].imdbID;
-                filmId.push(dataId);
-              }
-              this.filmListDetailF(filmId);
+							this.dataLength = res.length;
+							let filmId = [];
+							for (let i = 0; i < res.length; i++) {
+								let dataId = res[i].imdbID;
+								filmId.push(dataId);
+							}
+              				this.filmListDetailF(filmId);
 						} else {
 							this.data = {empty: true}
 						}
@@ -42,21 +43,23 @@ export class SearchComponent implements OnInit {
 				);
 			}
 		}, 1500);
-  }
+  	}
   
-  filmListDetailF(filmId) {
-		let newarr = [];
-		for (let i = 0; i < filmId.length; i++) {
+  	filmListDetailF(filmId) {
+		let newarr = [],
+			length = filmId.length;
+		for (let i = 0; i < length; i++) {
 			this.dataService.getFilmShort(filmId[i]).subscribe(
-				(response: Response) => {
-					let newitem = response.json();
-					newarr.push(newitem);
+				(response) => {
+					newarr.push(response.json());
+					if (i === length - 1) {
+						this.data = newarr;
+					} else {
+						console.log('salih');
+					}
 				},
 				(error) => console.log(error)
 			);
 		}
-		this.data = newarr;
-		console.log(this.data);
 	}
-
 }
